@@ -1,98 +1,104 @@
 <template>
   <form @submit.prevent="handleSubmit" class="mt-5">
     <div class="mb-3">
-      <label for="exampleFormControlInput1" class="form-label">姓名 :</label>
-      <input v-model="formData.name" type="text" name="name" class="form-control" />
+      <label class="form-label">姓名 :</label>
+      <input v-model="member.name" type="text" name="name" class="form-control" required />
     </div>
     <div class="mb-3">
-      <label for="exampleFormControlInput1" class="form-label">Email :</label>
-      <input type="email" class="form-control" v-model="formData.email" name="email" />
+      <label class="form-label">Email :</label>
+      <input type="email" class="form-control" v-model="member.email" name="email" required />
     </div>
     <div class="mb-3">
-      <label for="exampleFormControlInput1" class="form-label">地址 :</label>
-      <input v-model="formData.address" type="text" name="address" class="form-control" />
+      <label class="form-label">地址 :</label>
+      <input v-model="member.address" type="text" name="address" class="form-control" required />
     </div>
     <div class="mb-3">
-      <label for="exampleFormControlInput1" class="form-label">電話 :</label>
-      <input v-model="formData.telephone" type="text" name="telephone" class="form-control" />
-    </div>
-    <div class="mb-3">
-      <label for="exampleFormControlInput1" class="form-label">照片 :</label>
-      <input v-model="formData.image" type="text" name="image" class="form-control" />
-    </div>
-    <div class="mb-3">
-      <label for="exampleFormControlInput1" class="form-label">生日 :</label>
-      <input v-model="formData.birthday" type="date" name="birthday" class="form-control" />
+      <label class="form-label">電話 :</label>
+      <input
+        v-model="member.telephone"
+        type="text"
+        name="telephone"
+        pattern="[0-9]+"
+        title="請輸入數字"
+        required
+        class="form-control"
+      />
     </div>
     <div class="mb-3 visually-hidden">
-      <label for="exampleFormControlInput1" class="form-label">加入日期 :</label>
-      <input v-model="formData.joinDate" type="date" name="joinDate" class="form-control" />
-    </div>
-    <div class="mb-3 visually-hidden">
-      <label for="exampleFormControlInput1" class="form-label">memberId :</label>
-      <input v-model="formData.memberId" type="text" name="memberId" class="form-control" />
+      <label class="form-label">照片 :</label>
+      <input v-model="member.image" type="text" name="image" class="form-control" />
     </div>
     <div class="mb-3">
-      <label for="exampleFormControlTextarea1" class="form-label">Example textarea</label>
-      <textarea class="form-control" rows="3" v-model="formData.notes" name="notes"></textarea>
+      <label class="form-label">生日 :</label>
+      <input v-model="member.birthday" type="date" name="birthday" class="form-control" required />
+    </div>
+    <div class="mb-3 visually-hidden">
+      <label class="form-label">加入日期 :</label>
+      <input v-model="member.joinDate" type="date" name="joinDate" class="form-control" required />
+    </div>
+    <div class="mb-3 visually-hidden">
+      <label class="form-label">memberId :</label>
+      <input v-model="member.memberId" type="text" name="memberId" class="form-control" required />
+    </div>
+    <div class="mb-3">
+      <label class="form-label">Example textarea</label>
+      <textarea class="form-control" rows="3" v-model="member.notes" name="notes"></textarea>
+    </div>
+    <div class="mb-3 visually-hidden">
+      <label class="form-label">Level</label>
+      <input v-model="member.level" type="text" name="level" class="form-control" required />
     </div>
     <button type="submit" class="btn btn-light">提交</button>
   </form>
 </template>
   
   <script setup>
-import { ref, reactive, toRefs } from "vue";
+import { ref } from "vue";
 
-// 使用 reactive 創建表單數據的狀態
-const formData = reactive({
-  address: "",
-  birthday: "",
-  email: "",
-  image: "",
-  joinDate: "",
-  level: "",
-  memberId: "",
-  name: "",
-  notes: "",
-  telephone: ""
-});
-
-const member = ref([]);
-const Address = "https://localhost:7195";
+const member = ref({});
 const loadMember = async () => {
-  const res = await fetch(`${Address}/api/Members/${7}`);
-  const datas = await res.json();
-  member.value = datas;
-  // console.log(JSON.stringify(datas))
-  console.log(member.value);
+  const res = await fetch(`https://localhost:7195/api/Members/${7}`);
+  const data = await res.json();
+  member.value = data; // 設置成物件而不是陣列
 
-  formData.email = member.value.email;
-  formData.name = member.value.name;
-  formData.address = member.value.address;
-  formData.image = member.value.image;
-  formData.birthday = formattedDate(member.value.birthday);
-  formData.joinDate = formattedDate(member.value.joinDate);
-  formData.memberId = member.value.memberId;
-  formData.notes = member.value.notes;
-  formData.telephone = member.value.telephone;
+  member.value.joinDate = formattedDate(member.value.joinDate);
+  member.value.birthday = formattedDate(member.value.birthday);
+  console.log(member.value);
 };
 loadMember();
 
 // 格式化日期為年月日格式
 function formattedDate(dateString) {
   const date = new Date(dateString);
-  return `${date.getFullYear()}年${(
-    date.getMonth() + 1
-  ).toString()}月${date.getDate().toString()}日`;
+  const year = date.getFullYear();
+  const month = String(date.getMonth() + 1).padStart(2, "0");
+  const day = String(date.getDate()).padStart(2, "0");
+  return `${year}-${month}-${day}`;
 }
 
 // 提交表單的處理函式
 async function handleSubmit() {
-  console.log(formData);
   try {
-    const response = await fetch(`${Address}/api/Members/${7}`, {
+    const diet = {
+      memberId: member.value.memberId,
+      name: member.value.name,
+      telephone: member.value.telephone,
+      email: member.value.email,
+      address: member.value.address,
+      birthday: member.value.birthday,
+      level: member.value.level,
+      joinDate: member.value.joinDate,
+      image: member.value.image,
+      notes: member.value.notes
+    };
+
+    const response = await fetch(`https://localhost:7195/api/Members/${7}`, {
       method: "PUT",
-      body: JSON.stringify(formData)
+
+      body: JSON.stringify(diet),
+      headers: {
+        "content-type": "application/json"
+      }
     });
 
     if (response.ok) {
