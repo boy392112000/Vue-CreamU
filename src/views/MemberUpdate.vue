@@ -49,15 +49,32 @@
       <input v-model="member.level" type="text" name="level" class="form-control" required />
     </div>
     <button type="submit" class="btn btn-light">提交</button>
+    <v-card class="mx-auto" max-width="344" variant="outlined">
+      <v-card-item>
+        <div>
+          <div class="text-overline mb-1">OVERLINE</div>
+          <div class="text-h6 mb-1">Headline</div>
+          <div class="text-caption">Greyhound divisely hello coldly fonwderfully</div>
+        </div>
+      </v-card-item>
+
+      <v-card-actions>
+        <v-btn variant="outlined">Button</v-btn>
+      </v-card-actions>
+    </v-card>
   </form>
 </template>
   
   <script setup>
 import { ref } from "vue";
+import router from "../router.js";
 
-const member = ref({});
+const id = 1; // 暫時設定的變數
+const Address = "https://localhost:7098";
+const member = ref([]);
+
 const loadMember = async () => {
-  const res = await fetch(`https://localhost:7195/api/Members/${7}`);
+  const res = await fetch(`${Address}/api/MembersAPI/${id}`);
   const data = await res.json();
   member.value = data; // 設置成物件而不是陣列
 
@@ -92,7 +109,7 @@ async function handleSubmit() {
       notes: member.value.notes
     };
 
-    const response = await fetch(`https://localhost:7195/api/Members/${7}`, {
+    const response = await fetch(`${Address}/api/Members/${1}`, {
       method: "PUT",
 
       body: JSON.stringify(diet),
@@ -104,6 +121,9 @@ async function handleSubmit() {
     if (response.ok) {
       // 處理成功的回應
       console.log("請求成功");
+      router.push({
+        path: "/Member"
+      });
     } else {
       // 處理失敗的回應
       console.log("請求失敗");
