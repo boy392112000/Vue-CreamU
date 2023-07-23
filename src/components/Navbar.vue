@@ -15,17 +15,44 @@
       </button>
       <div class="collapse navbar-collapse" id="navbarNav">
         <ul class="navbar-nav">
-          <li class="nav-item">
-            <router-link class="nav-link active" to="/Member">Member</router-link>
+          <li class="nav-item dropdown">
+            <a
+              class="nav-link dropdown-toggle"
+              href="#"
+              role="button"
+              data-bs-toggle="dropdown"
+              aria-expanded="false"
+            >Member</a>
+            <ul class="dropdown-menu">
+              <li>
+                <router-link class="dropdown-item" to="/Member">My Account</router-link>
+              </li>
+              <li>
+                <a class="dropdown-item" href="#">Shopping Cart</a>
+              </li>
+              <li>
+                <hr class="dropdown-divider" />
+              </li>
+              <li>
+                <a class="dropdown-item" href="#">Order History</a>
+              </li>
+            </ul>
           </li>
         </ul>
       </div>
     </div>
   </nav>
+  <!-- <router-link class="nav-link active" to="/Member">Member</router-link>
+  </li>-->
 </template>
     
 <script setup>
 </script>
     
 <style scoped>
+@import url("https://fonts.googleapis.com/css2?family=Josefin+Sans:ital,wght@1,300&family=Noto+Sans+HK:wght@700&display=swap");
+nav {
+  font-family: "Josefin Sans", sans-serif;
+  font-family: "Noto Sans HK", sans-serif;
+}
 </style>

@@ -1,6 +1,6 @@
 <template>
   <div class="mt-5">
-    <button type="button" class="btn btn-primary position-relative">
+    <button type="button" class="btn btn-outline-warning position-relative">
       ~ VIP ~
       <span
         class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger"
@@ -49,6 +49,10 @@
           <div class="modal-body">
             <form>
               <div class="mb-3">
+                <!-- 照片預覽 -->
+                <div class="preview-container" v-if="previewImage">
+                  <img :src="previewImage" class="preview-image" />
+                </div>
                 <label for="formFile" class="form-label">請選擇照片</label>
                 <input class="form-control" type="file" ref="fileInput" @change="validatePhoto" />
                 <!-- 顯示錯誤訊息 -->
@@ -83,6 +87,7 @@ const showUploadModal = ref(false);
 const fileInput = ref(null);
 const Address = `https://localhost:7098`;
 const errorMessage = ref("");
+const previewImage = ref(null);
 
 const prop = defineProps({
   member: Object
@@ -125,11 +130,19 @@ const validatePhoto = () => {
   if (!allowedFormats.includes(fileExtension)) {
     errorMessage.value =
       "上傳格式錯誤，請選擇支援的照片格式（.jpg、.jpeg、.png、.gif、.tif、.bmp）";
+    previewImage.value.value = null;
   } else {
+    // 檔案格式正確，顯示預覽照片
+    const reader = new FileReader();
+    reader.onload = event => {
+      previewImage.value = event.target.result;
+    };
+    reader.readAsDataURL(file);
     errorMessage.value = ""; // 清空錯誤訊息
   }
 };
 const openUploadModal = () => {
+  previewImage.value = null;
   fileInput.value.value = null;
   errorMessage.value = "";
   showUploadModal.value = true;
@@ -176,5 +189,16 @@ label {
   justify-content: center;
   align-items: left;
   margin-top: 25px;
+}
+.preview-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 200px; /* 設定預覽容器的高度 */
+}
+
+.preview-image {
+  max-width: 100%; /* 限制預覽圖片的最大寬度 */
+  max-height: 100%; /* 限制預覽圖片的最大高度 */
 }
 </style>
