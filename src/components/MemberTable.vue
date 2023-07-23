@@ -9,7 +9,7 @@
           data-bs-target="#panelsStayOpen-collapseOne"
           aria-expanded="true"
           aria-controls="panelsStayOpen-collapseOne"
-        >電子郵件</button>
+        >電子郵件 :</button>
       </h2>
       <div id="panelsStayOpen-collapseOne" class="accordion-collapse collapse show">
         <div class="accordion-body">{{member.email}}</div>
@@ -24,7 +24,7 @@
           data-bs-target="#panelsStayOpen-collapseOne"
           aria-expanded="true"
           aria-controls="panelsStayOpen-collapseOne"
-        >地址</button>
+        >地址 :</button>
       </h2>
       <div id="panelsStayOpen-collapseOne" class="accordion-collapse show">
         <div class="accordion-body">{{member.address}}</div>
@@ -39,7 +39,7 @@
           data-bs-target="#panelsStayOpen-collapseOne"
           aria-expanded="true"
           aria-controls="panelsStayOpen-collapseOne"
-        >生日</button>
+        >生日 :</button>
       </h2>
       <div id="panelsStayOpen-collapseOne" class="accordion-collapse show">
         <div class="accordion-body">{{formattedDate(member.birthday)}}</div>
@@ -84,7 +84,7 @@
           data-bs-target="#panelsStayOpen-collapseOne"
           aria-expanded="true"
           aria-controls="panelsStayOpen-collapseOne"
-        >備註</button>
+        >備註 :</button>
       </h2>
       <div id="panelsStayOpen-collapseOne" class="accordion-collapse show">
         <div class="accordion-body">{{member.notes}}</div>
