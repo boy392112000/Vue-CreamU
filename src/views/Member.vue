@@ -4,14 +4,14 @@
       <h1>我的帳戶</h1>
       <div class="d-flex justify-content-end">
         <div>
-          <router-link type="button" class="btn btn-success" to="/MemberUpdate">修改會員資料</router-link>
+          <router-link type="button" class="btn btn-success text-white" to="/MemberUpdate">修改會員資料</router-link>
         </div>
         <div class="mx-2">
           <!-- 這邊是彈跳視窗的開始 -->
           <!-- Button trigger modal -->
           <button
             type="button"
-            class="btn btn-danger"
+            class="btn btn-danger text-white"
             data-bs-toggle="modal"
             data-bs-target="#staticBackdrop"
           >刪除帳號</button>
@@ -91,4 +91,8 @@ function Memberdelete() {
 </script>
     
 <style scoped>
+@import url("https://fonts.googleapis.com/css2?family=Noto+Sans+HK:wght@700&display=swap");
+div {
+  font-family: "Noto Sans HK", sans-serif;
+}
 </style>

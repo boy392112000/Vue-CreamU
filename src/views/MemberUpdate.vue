@@ -49,19 +49,6 @@
       <input v-model="member.level" type="text" name="level" class="form-control" required />
     </div>
     <button type="submit" class="btn btn-light">提交</button>
-    <v-card class="mx-auto" max-width="344" variant="outlined">
-      <v-card-item>
-        <div>
-          <div class="text-overline mb-1">OVERLINE</div>
-          <div class="text-h6 mb-1">Headline</div>
-          <div class="text-caption">Greyhound divisely hello coldly fonwderfully</div>
-        </div>
-      </v-card-item>
-
-      <v-card-actions>
-        <v-btn variant="outlined">Button</v-btn>
-      </v-card-actions>
-    </v-card>
   </form>
 </template>
   
@@ -135,5 +122,9 @@ async function handleSubmit() {
 </script>
   
   <style scoped>
+@import url("https://fonts.googleapis.com/css2?family=Noto+Sans+HK:wght@700&display=swap");
+form {
+  font-family: "Noto Sans HK", sans-serif;
+}
 </style>
   
