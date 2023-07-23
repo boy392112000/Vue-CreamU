@@ -10,26 +10,134 @@
       </span>
     </button>
     <div class="image-container">
-      <img :src="`https://localhost:7098/imgs/${member.image}`" width="400" height="400" />
+      <img
+        :src="`https://localhost:7098/imgs/${member.image}`"
+        width="400"
+        height="400"
+        @click="openUploadModal"
+      />
       <div class="hover-image">
         <img
+          type="button"
           src="https://png.pngtree.com/png-vector/20190725/ourmid/pngtree-vector-camera-icon-png-image_1576543.jpg"
           width="400"
           height="400"
+          data-bs-toggle="modal"
+          data-bs-target="#exampleModal"
+          data-bs-whatever="@getbootstrap"
+          @click="openUploadModal"
         />
       </div>
     </div>
     <label>
       <h2>{{member.name}}</h2>
     </label>
+    <!-- 上傳照片視窗 -->
+    <div
+      class="modal fade"
+      id="exampleModal"
+      tabindex="-1"
+      aria-labelledby="exampleModalLabel"
+      aria-hidden="true"
+    >
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h1 class="modal-title fs-5" id="exampleModalLabel">新增照片</h1>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body">
+            <form>
+              <div class="mb-3">
+                <label for="formFile" class="form-label">請選擇照片</label>
+                <input class="form-control" type="file" ref="fileInput" @change="validatePhoto" />
+                <!-- 顯示錯誤訊息 -->
+                <p
+                  v-if="errorMessage"
+                  class="alert alert-danger mt-3"
+                  role="alert"
+                >{{ errorMessage }}</p>
+              </div>
+            </form>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">取消</button>
+            <button
+              type="button"
+              class="btn btn-primary"
+              :disabled="errorMessage !== ''"
+              @click="uploadPhoto"
+              data-bs-dismiss="modal"
+            >確認</button>
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
 </template>
 
  <script setup>
+import { ref } from "vue";
+const id = 10;
+const showUploadModal = ref(false);
+const fileInput = ref(null);
+const Address = `https://localhost:7098`;
+const errorMessage = ref("");
+
 const prop = defineProps({
   member: Object
 });
+const uploadPhoto = async () => {
+  if (fileInput.value && fileInput.value.files.length > 0) {
+    const file = fileInput.value.files[0];
+    const PhotoImage = new FormData();
+    PhotoImage.append("photo", file);
+    // const files = PhotoImage.get("photo"); // 驗證檔案室否有值
+    // console.log(files); // 驗證檔案室否有值
+    // console.log(PhotoImage);
+    try {
+      const res = await fetch(`${Address}/api/MembersAPI/${id}/upload`, {
+        method: "POST",
+        body: PhotoImage
+      });
+
+      if (res.ok) {
+        const data = await res.text();
+        console.log(data);
+        prop.member.image = data;
+      } else {
+        const errorText = await res.text();
+        errorMessage.value = errorText;
+      }
+    } catch (error) {
+      console.error("上傳照片時發生錯誤：", error);
+      errorMessage.value = "上傳照片時發生錯誤";
+    }
+  }
+};
+// 照片驗證格式
+const validatePhoto = () => {
+  const file = fileInput.value.files[0];
+  const allowedFormats = [".jpg", ".jpeg", ".png", ".gif", ".tif", ".bmp"];
+  const fileExtension = file.name
+    .substring(file.name.lastIndexOf("."))
+    .toLowerCase();
+  if (!allowedFormats.includes(fileExtension)) {
+    errorMessage.value =
+      "上傳格式錯誤，請選擇支援的照片格式（.jpg、.jpeg、.png、.gif、.tif、.bmp）";
+  } else {
+    errorMessage.value = ""; // 清空錯誤訊息
+  }
+};
+const openUploadModal = () => {
+  fileInput.value.value = null;
+  errorMessage.value = "";
+  showUploadModal.value = true;
+  console.log(showUploadModal.value);
+};
 </script> 
+<script>
+</script>
 
 <style scoped>
 .image-container {
@@ -46,7 +154,7 @@ const prop = defineProps({
 }
 
 .image-container:hover .hover-image {
-  opacity: 50%;
+  opacity: 40%;
 }
 
 img {
