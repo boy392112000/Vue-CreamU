@@ -96,7 +96,7 @@ async function handleSubmit() {
       notes: member.value.notes
     };
 
-    const response = await fetch(`${Address}/api/Members/${1}`, {
+    const response = await fetch(`${Address}/api/MembersAPI/${id}`, {
       method: "PUT",
 
       body: JSON.stringify(diet),

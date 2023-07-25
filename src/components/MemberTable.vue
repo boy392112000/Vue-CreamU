@@ -1,11 +1,11 @@
 <template>
-  <div class="accordion" id="accordionPanelsStayOpenExample">
+  <div class="accordion">
     <div class="accordion-item">
       <h2 class="accordion-header">
         <button
-          class="accordion-button collapsed"
+          class="accordion-button"
           type="button"
-          data-bs-toggle="collapse"
+          data-bs-toggle="false"
           data-bs-target="#panelsStayOpen-collapseOne"
           aria-expanded="true"
           aria-controls="panelsStayOpen-collapseOne"
@@ -18,9 +18,9 @@
     <div class="accordion-item">
       <h2 class="accordion-header">
         <button
-          class="accordion-button collapsed"
+        class="accordion-button"
           type="button"
-          data-bs-toggle="collapse"
+          data-bs-toggle="false"
           data-bs-target="#panelsStayOpen-collapseOne"
           aria-expanded="true"
           aria-controls="panelsStayOpen-collapseOne"
@@ -33,9 +33,9 @@
     <div class="accordion-item">
       <h2 class="accordion-header">
         <button
-          class="accordion-button collapsed"
+        class="accordion-button"
           type="button"
-          data-bs-toggle="collapse"
+          data-bs-toggle="false"
           data-bs-target="#panelsStayOpen-collapseOne"
           aria-expanded="true"
           aria-controls="panelsStayOpen-collapseOne"
@@ -48,9 +48,9 @@
     <div class="accordion-item">
       <h2 class="accordion-header">
         <button
-          class="accordion-button collapsed"
+        class="accordion-button"
           type="button"
-          data-bs-toggle="collapse"
+          data-bs-toggle="false"
           data-bs-target="#panelsStayOpen-collapseOne"
           aria-expanded="true"
           aria-controls="panelsStayOpen-collapseOne"
@@ -63,9 +63,9 @@
     <div class="accordion-item">
       <h2 class="accordion-header">
         <button
-          class="accordion-button collapsed"
+        class="accordion-button"
           type="button"
-          data-bs-toggle="collapse"
+          data-bs-toggle="false"
           data-bs-target="#panelsStayOpen-collapseOne"
           aria-expanded="true"
           aria-controls="panelsStayOpen-collapseOne"
@@ -78,9 +78,9 @@
     <div class="accordion-item">
       <h2 class="accordion-header">
         <button
-          class="accordion-button collapsed"
+        class="accordion-button"
           type="button"
-          data-bs-toggle="collapse"
+          data-bs-toggle="false"
           data-bs-target="#panelsStayOpen-collapseOne"
           aria-expanded="true"
           aria-controls="panelsStayOpen-collapseOne"
