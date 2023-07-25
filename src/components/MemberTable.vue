@@ -121,4 +121,8 @@ table tbody td {
   vertical-align: middle; /* 將文字垂直置中 */
   padding: 10px; /* 添加內邊距 */
 }
+/* 隱藏 accordion-button 旁邊的箭頭符號 */
+.accordion-button::after {
+  display: none;
+}
 </style>
