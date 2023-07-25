@@ -51,7 +51,7 @@
               <div class="mb-3">
                 <!-- 照片預覽 -->
                 <div class="preview-container" v-if="previewImage">
-                  <img :src="previewImage" class="preview-image" />
+                  <img :src="previewImage" class="preview-image" width="200" height="200"/>
                 </div>
                 <label for="formFile" class="form-label">請選擇照片</label>
                 <input class="form-control" type="file" ref="fileInput" @change="validatePhoto" />
@@ -81,13 +81,14 @@
 </template>
 
  <script setup>
-import { ref } from "vue";
+import { ref,defineEmits  } from "vue";
 const id = 10;
 const showUploadModal = ref(false);
 const fileInput = ref(null);
 const Address = `https://localhost:7098`;
 const errorMessage = ref("");
 const previewImage = ref(null);
+const emits = defineEmits(['update']); // 定義子元件可以發送的事件
 
 const prop = defineProps({
   member: Object
@@ -109,7 +110,7 @@ const uploadPhoto = async () => {
       if (res.ok) {
         const data = await res.text();
         console.log(data);
-        prop.member.image = data;
+        emits('update');
       } else {
         const errorText = await res.text();
         errorMessage.value = errorText;
@@ -130,7 +131,7 @@ const validatePhoto = () => {
   if (!allowedFormats.includes(fileExtension)) {
     errorMessage.value =
       "上傳格式錯誤，請選擇支援的照片格式（.jpg、.jpeg、.png、.gif、.tif、.bmp）";
-    previewImage.value.value = null;
+    previewImage.value = null;
   } else {
     // 檔案格式正確，顯示預覽照片
     const reader = new FileReader();

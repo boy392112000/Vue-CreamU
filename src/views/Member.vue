@@ -51,7 +51,7 @@
       <hr />
     </div>
     <div class="col-4">
-      <MemberData :member="member"></MemberData>
+      <MemberData :member="member" @update="loadMember"></MemberData>
     </div>
     <div class="col-8">
       <MemberTable :member="member"></MemberTable>

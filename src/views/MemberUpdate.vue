@@ -56,7 +56,7 @@
 import { ref } from "vue";
 import router from "../router.js";
 
-const id = 1; // 暫時設定的變數
+const id = 10; // 暫時設定的變數
 const Address = "https://localhost:7098";
 const member = ref([]);
 
