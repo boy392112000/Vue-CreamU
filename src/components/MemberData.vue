@@ -51,7 +51,7 @@
               <div class="mb-3">
                 <!-- 照片預覽 -->
                 <div class="preview-container" v-if="previewImage">
-                  <img :src="previewImage" class="preview-image" width="200" height="200"/>
+                  <img :src="previewImage" class="preview-image" width="200" height="200" />
                 </div>
                 <label for="formFile" class="form-label">請選擇照片</label>
                 <input class="form-control" type="file" ref="fileInput" @change="validatePhoto" />
@@ -81,14 +81,14 @@
 </template>
 
  <script setup>
-import { ref,defineEmits  } from "vue";
+import { ref, defineEmits } from "vue";
 const id = 10;
 const showUploadModal = ref(false);
 const fileInput = ref(null);
 const Address = `https://localhost:7098`;
 const errorMessage = ref("");
 const previewImage = ref(null);
-const emits = defineEmits(['update']); // 定義子元件可以發送的事件
+const emits = defineEmits(["update"]); // 定義子元件可以發送的事件
 
 const prop = defineProps({
   member: Object
@@ -110,7 +110,7 @@ const uploadPhoto = async () => {
       if (res.ok) {
         const data = await res.text();
         console.log(data);
-        emits('update');
+        emits("update");
       } else {
         const errorText = await res.text();
         errorMessage.value = errorText;
