@@ -5,7 +5,7 @@
       <span
         class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger"
       >
-        Level{{member.level}}
+        Level{{ member.level }}
         <span class="visually-hidden">unread messages</span>
       </span>
     </button>
@@ -30,7 +30,7 @@
       </div>
     </div>
     <label>
-      <h2>{{member.name}}</h2>
+      <h2>{{ member.name }}</h2>
     </label>
     <!-- 上傳照片視窗 -->
     <div
