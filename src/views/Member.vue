@@ -8,7 +8,6 @@
         </div>
         <div class="mx-2">
           <!-- 這邊是彈跳視窗的開始 -->
-          <!-- Button trigger modal -->
           <button
             type="button"
             class="btn btn-danger text-white"

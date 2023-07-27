@@ -34,7 +34,7 @@
                 <hr class="dropdown-divider" />
               </li>
               <li>
-                <a class="dropdown-item" href="#">Order History</a>
+                <a class="dropdown-item" href="/OrderHistory">Order History</a>
               </li>
             </ul>
           </li>

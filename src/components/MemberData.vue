@@ -10,18 +10,11 @@
       </span>
     </button>
     <div class="image-container">
-      <img
-        :src="`https://localhost:7098/imgs/${member.image}`"
-        width="400"
-        height="400"
-        @click="openUploadModal"
-      />
+      <img :src="`https://localhost:7098/imgs/${member.image}`" @click="openUploadModal" />
       <div class="hover-image">
         <img
           type="button"
           src="https://png.pngtree.com/png-vector/20190725/ourmid/pngtree-vector-camera-icon-png-image_1576543.jpg"
-          width="400"
-          height="400"
           data-bs-toggle="modal"
           data-bs-target="#exampleModal"
           data-bs-whatever="@getbootstrap"
@@ -173,6 +166,8 @@ const openUploadModal = () => {
 
 img {
   border-radius: 50%;
+  width: 400px;
+  height: 400px;
 }
 
 .placeholder {
