@@ -18,7 +18,7 @@
     <div class="accordion-item">
       <h2 class="accordion-header">
         <button
-        class="accordion-button"
+          class="accordion-button"
           type="button"
           data-bs-toggle="false"
           data-bs-target="#panelsStayOpen-collapseOne"
@@ -33,7 +33,7 @@
     <div class="accordion-item">
       <h2 class="accordion-header">
         <button
-        class="accordion-button"
+          class="accordion-button"
           type="button"
           data-bs-toggle="false"
           data-bs-target="#panelsStayOpen-collapseOne"
@@ -48,7 +48,7 @@
     <div class="accordion-item">
       <h2 class="accordion-header">
         <button
-        class="accordion-button"
+          class="accordion-button"
           type="button"
           data-bs-toggle="false"
           data-bs-target="#panelsStayOpen-collapseOne"
@@ -63,7 +63,7 @@
     <div class="accordion-item">
       <h2 class="accordion-header">
         <button
-        class="accordion-button"
+          class="accordion-button"
           type="button"
           data-bs-toggle="false"
           data-bs-target="#panelsStayOpen-collapseOne"
@@ -78,7 +78,7 @@
     <div class="accordion-item">
       <h2 class="accordion-header">
         <button
-        class="accordion-button"
+          class="accordion-button"
           type="button"
           data-bs-toggle="false"
           data-bs-target="#panelsStayOpen-collapseOne"
