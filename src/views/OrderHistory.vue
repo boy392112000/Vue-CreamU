@@ -2,10 +2,35 @@
   <div>
     <br />
     <p id="title">歷史紀錄</p>
+    <div class="row mb-5">
+      <div class="col-3">
+        <p class="pt-1 mt-1 mx-5 text-end" style="font-family: Noto Sans TC; sans-serif;">訂單成立日期 :</p>
+      </div>
+      <div class="col-4">
+        <VueDatePicker
+          v-model="staDate"
+          :enable-time-picker="false"
+          :format-locale="zhTW"
+          :state="true"
+          @update:model-value="handleDateChange"
+        />
+      </div>
+      <div class="col-4">
+        <VueDatePicker
+          v-model="endDate"
+          :min-date="staDate"
+          :format-locale="zhTW"
+          :enable-time-picker="false"
+          :state="true"
+          @update:model-value="handleDateChange"
+        />
+      </div>
+    </div>
+
     <!-- 使用v-if條件判斷是否顯示手風琴 -->
     <div v-if="orders.length > 0" class="accordion accordion-flush" id="accordionFlushExample">
       <!-- 使用v-for指令迭代loadOrder返回的資料，生成手風琴的項目 -->
-      <div class="accordion-item" v-for="(order, index) in orders" :key="order.orderId">
+      <div class="accordion-item" v-for="(order, index) in originalOrders" :key="order.orderId">
         <h2 class="accordion-header">
           <button
             class="accordion-button collapsed"
@@ -52,6 +77,7 @@
         </div>
       </div>
     </div>
+
     <!-- 如果orders陣列為空，則顯示尚未購買東西的訊息 -->
     <div v-else class="text-center">
       <img src="https://memeprod.sgp1.digitaloceanspaces.com/user-wtf/1588336771719.jpg" />
@@ -62,8 +88,13 @@
 <script setup>
 import MemberData from "../components/MemberData.vue";
 import { ref, onMounted } from "vue";
+import VueDatePicker from "@vuepic/vue-datepicker";
+import { zhTW } from "date-fns/locale";
 
 const member = ref([]);
+const originalOrders = ref([]); // 新增 originalOrders 變數用於保存一開始載入的所有訂單資料
+const staDate = ref(new Date());
+const endDate = ref(new Date());
 const Address = "https://localhost:7098";
 const id = 1;
 const orders = ref([]);
@@ -83,6 +114,8 @@ const loadOrder = async () => {
   const data = await res.json();
   console.log(data);
   orders.value = data; // 將取得的資料賦值給orders變數
+  // 將 originalOrders 的值設置為初始的 orders 值
+  originalOrders.value = orders.value;
 };
 
 // 載入明細資料
@@ -91,6 +124,8 @@ const loadOrderDetails = async orderId => {
   const data = await res.json();
   console.log(data);
   ordersDetails.value = data;
+  console.log(new Date(staDate.value));
+  console.log(new Date(endDate.value));
 
   // 迭代ordersDetails陣列，為每筆明細資料添加產品資料
   for (const orderDetail of ordersDetails.value) {
@@ -125,6 +160,32 @@ const getProductDetails = async productId => {
 onMounted(async () => {
   await loadOrder();
 });
+
+// 將 filterOrders 函數移至 handleDateChange 函數內部，以便正確呼叫
+const handleDateChange = () => {
+  // 將日期格式轉換為符合 orderDate 格式的字串
+  const start = staDate.value.toISOString().slice(0, 10);
+  const end = endDate.value.toISOString().slice(0, 10);
+
+  // 在事件處理函數中執行重新篩選的處理
+  const filteredOrders = filterOrders(start, end);
+
+  // 如果使用者選擇了日期範圍，則將 orders 的值設置為 filteredOrders
+  // 否則將 orders 的值設置為 originalOrders，這樣可以保證在選擇日期前顯示所有訂單，選擇日期後顯示篩選後的訂單
+  originalOrders.value =
+    filteredOrders.length > 0 ? filteredOrders : orders.value;
+  console.log(filteredOrders);
+};
+
+const filterOrders = (start, end) => {
+  // 將篩選後的結果回傳
+  return orders.value.filter(order => {
+    const orderDate = new Date(order.orderDate);
+    const formattedOrderDate = orderDate.toISOString().slice(0, 10);
+    console.log(formattedOrderDate);
+    return formattedOrderDate >= start && formattedOrderDate <= end;
+  });
+};
 </script>
     
 <style scoped>
