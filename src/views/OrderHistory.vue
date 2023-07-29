@@ -28,7 +28,12 @@
     </div>
 
     <!-- 使用v-if條件判斷是否顯示手風琴 -->
-    <div v-if="orders.length > 0" class="accordion accordion-flush" id="accordionFlushExample">
+    <div
+      v-if="orders.length > 0"
+      class="accordion accordion-flush"
+      id="accordionFlushExample"
+      :multiple="true"
+    >
       <!-- 使用v-for指令迭代loadOrder返回的資料，生成手風琴的項目 -->
       <div class="accordion-item" v-for="(order, index) in originalOrders" :key="order.orderId">
         <h2 class="accordion-header">
@@ -56,9 +61,9 @@
               <div class="row">
                 第 {{ detailIndex +1}} 筆
                 <hr />
-                <div class="col-4">
+                <div class="col-4 d-flex justify-content-center align-items-center">
                   <!-- <img :src="`https://localhost:7098/imgs/${ordersDetail.productImage}`" /> -->
-                  <img src="../imgs/小小兵.jpg" alt srcset />
+                  <img src="../imgs/小小兵.jpg" height="200" />
                 </div>
                 <div class="col-6">
                   <p>產品名稱 : {{ ordersDetail.product }}</p>
@@ -79,7 +84,7 @@
     </div>
 
     <!-- 如果orders陣列為空，則顯示尚未購買東西的訊息 -->
-    <div v-else class="text-center">
+    <div v-else class="text-center mt-5">
       <img src="https://memeprod.sgp1.digitaloceanspaces.com/user-wtf/1588336771719.jpg" />
     </div>
   </div>

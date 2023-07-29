@@ -6,7 +6,7 @@ import OrderHistory from "./views/OrderHistory.vue";
 
 const routes = [
   {
-    path: "/Member",
+    path: "/",
     component: Member,
   },
   {
