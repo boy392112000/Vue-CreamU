@@ -8,33 +8,17 @@
         </div>
         <div class="mx-2">
           <!-- 這邊是彈跳視窗的開始 -->
-          <button
-            type="button"
-            class="btn btn-danger text-white"
-            data-bs-toggle="modal"
-            data-bs-target="#staticBackdrop"
-          >刪除帳號</button>
+          <button type="button" class="btn btn-danger text-white" data-bs-toggle="modal"
+            data-bs-target="#staticBackdrop">刪除帳號</button>
 
           <!-- Modal -->
-          <div
-            class="modal fade"
-            id="staticBackdrop"
-            data-bs-backdrop="static"
-            data-bs-keyboard="false"
-            tabindex="-1"
-            aria-labelledby="staticBackdropLabel"
-            aria-hidden="true"
-          >
+          <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+            aria-labelledby="staticBackdropLabel" aria-hidden="true">
             <div class="modal-dialog">
               <div class="modal-content">
                 <div class="modal-header">
                   <h1 class="modal-title fs-5" id="staticBackdropLabel">這是個令人遺憾的決定!</h1>
-                  <button
-                    type="button"
-                    class="btn-close"
-                    data-bs-dismiss="modal"
-                    aria-label="Close"
-                  ></button>
+                  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">你真的要刪除嗎?</div>
                 <div class="modal-footer">
@@ -70,8 +54,8 @@ const loadMember = async () => {
   const res = await fetch(`${Address}/api/MembersAPI/${id}`);
   const datas = await res.json();
   member.value = datas;
-  console.log(JSON.stringify(datas));
-  console.log(member.value);
+  // console.log(JSON.stringify(datas));
+  // console.log(member.value);
 };
 loadMember();
 
@@ -91,6 +75,7 @@ function Memberdelete() {
     
 <style scoped>
 @import url("https://fonts.googleapis.com/css2?family=Noto+Sans+HK:wght@700&display=swap");
+
 div {
   font-family: "Noto Sans HK", sans-serif;
 }

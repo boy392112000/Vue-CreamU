@@ -50,8 +50,7 @@
                 <hr />
                 <div class="col-4 d-flex justify-content-center align-items-center">
                   <!-- <img :src="`https://localhost:7098/imgs/${ordersDetail.productImage}`" /> -->
-                  <img :src="`https://localhost:7098/imgs/${ordersDetail.productImage}`" height="200"
-                    :alt="ordersDetail.product + '.jpg'" />
+                  <img :src="`https://localhost:7098/imgs/${ordersDetail.productImage}`" height="200" />
                 </div>
                 <div class="col-6">
                   <p>產品名稱 : {{ ordersDetail.product }}</p>
@@ -106,7 +105,7 @@ loadMember();
 const loadOrder = async () => {
   const res = await fetch(`${Address}/api/OrdersAPI/${id}`);
   const data = await res.json();
-  console.log(data);
+  // console.log(data);
   orders.value = data; // 將取得的資料賦值給orders變數
   // 將 originalOrders 的值設置為初始的 orders 值
   originalOrders.value = orders.value;
@@ -116,10 +115,10 @@ const loadOrder = async () => {
 const loadOrderDetails = async orderId => {
   const res = await fetch(`${Address}/api/OrderDetailsAPI/${orderId}`);
   const data = await res.json();
-  console.log(data);
+  // console.log(data);
   ordersDetails.value = data;
-  console.log(new Date(staDate.value));
-  console.log(new Date(endDate.value));
+  // console.log(new Date(staDate.value));
+  // console.log(new Date(endDate.value));
 
   // 迭代ordersDetails陣列，為每筆明細資料添加產品資料
   for (const orderDetail of ordersDetails.value) {
@@ -168,7 +167,7 @@ const handleDateChange = () => {
   // 否則將 orders 的值設置為 originalOrders，這樣可以保證在選擇日期前顯示所有訂單，選擇日期後顯示篩選後的訂單
   originalOrders.value =
     filteredOrders.length > 0 ? filteredOrders : [];
-  console.log(filteredOrders);
+  // console.log(filteredOrders);
 };
 
 const filterOrders = (start, end) => {
@@ -176,7 +175,7 @@ const filterOrders = (start, end) => {
   return orders.value.filter(order => {
     const orderDate = new Date(order.orderDate);
     const formattedOrderDate = orderDate.toISOString().slice(0, 10);
-    console.log(formattedOrderDate);
+    // console.log(formattedOrderDate);
     return formattedOrderDate >= start && formattedOrderDate <= end;
   });
 };

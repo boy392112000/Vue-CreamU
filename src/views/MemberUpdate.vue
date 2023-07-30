@@ -17,7 +17,7 @@
         <div class="mb-3">
           <label class="form-label">縣市 :</label>
           <select v-model="selectedCity" @change="handleCityChange" class="form-select">
-            <option value>{{city}}</option>
+            <option value>{{ city }}</option>
             <option v-for="citys in cities" :key="citys">{{ citys }}</option>
           </select>
         </div>
@@ -26,7 +26,7 @@
         <div class="mb-3">
           <label class="form-label">區域 :</label>
           <select v-model="selectedDistrict" class="form-select">
-            <option value>{{region}}</option>
+            <option value>{{ region }}</option>
             <option v-for="district in cityDistricts[selectedCity]" :key="district">{{ district }}</option>
           </select>
         </div>
@@ -34,30 +34,16 @@
       <div class="col-8">
         <div class="mb-3">
           <label class="form-label">地址 :</label>
-          <input
-            v-model="address"
-            type="text"
-            name="address"
-            class="form-control"
-            pattern="^[a-zA-Z0-9\u4e00-\u9fa5]+$"
-            title="請輸入有效的地址格式!( 不能有特殊符號與空格 )"
-            required
-          />
+          <input v-model="address" type="text" name="address" class="form-control" pattern="^[a-zA-Z0-9\u4e00-\u9fa5]+$"
+            title="請輸入有效的地址格式!( 不能有特殊符號與空格 )" required />
         </div>
       </div>
     </div>
 
     <div class="mb-3">
       <label class="form-label">電話 :</label>
-      <input
-        v-model="member.telephone"
-        type="text"
-        name="telephone"
-        pattern="[0-9]+"
-        title="請輸入數字"
-        required
-        class="form-control"
-      />
+      <input v-model="member.telephone" type="text" name="telephone" pattern="[0-9]+" title="請輸入數字" required
+        class="form-control" />
     </div>
     <div class="mb-3 visually-hidden">
       <label class="form-label">照片 :</label>
@@ -108,7 +94,7 @@ const loadMember = async () => {
 
   member.value.joinDate = formattedDate(member.value.joinDate);
   member.value.birthday = formattedDate(member.value.birthday);
-  console.log(member.value);
+  // console.log(member.value);
 
   city.value = member.value.address.substring(0, 3);
   region.value = member.value.address.substring(
@@ -118,9 +104,9 @@ const loadMember = async () => {
   address.value = member.value.address.substring(
     member.value.address.lastIndexOf("區") + 1
   );
-  console.log(city);
-  console.log(region);
-  console.log(address);
+  // console.log(city);
+  // console.log(region);
+  // console.log(address);
 };
 loadMember();
 
