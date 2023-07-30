@@ -7,59 +7,46 @@
         <p class="pt-1 mt-1 mx-5 text-end" style="font-family: Noto Sans TC; sans-serif;">訂單成立日期 :</p>
       </div>
       <div class="col-4">
-        <VueDatePicker
-          v-model="staDate"
-          :enable-time-picker="false"
-          :format-locale="zhTW"
-          :state="true"
-          @update:model-value="handleDateChange"
-        />
+        <VueDatePicker v-model="staDate" :enable-time-picker="false" :format-locale="zhTW" :state="true"
+          @update:model-value="handleDateChange" />
       </div>
       <div class="col-4">
-        <VueDatePicker
-          v-model="endDate"
-          :min-date="staDate"
-          :format-locale="zhTW"
-          :enable-time-picker="false"
-          :state="true"
-          @update:model-value="handleDateChange"
-        />
+        <VueDatePicker v-model="endDate" :min-date="staDate" :format-locale="zhTW" :enable-time-picker="false"
+          :state="true" @update:model-value="handleDateChange" />
       </div>
+    </div>
+    <!-- 如果originalOrders是空陣列，則顯示查無資料的訊息 -->
+    <div v-if="originalOrders.length === 0" class="text-center" style="margin-top: 150px;">
+      <h1>查無資料!</h1>
     </div>
 
     <!-- 使用v-if條件判斷是否顯示手風琴 -->
-    <div
-      v-if="orders.length > 0"
-      class="accordion accordion-flush"
-      id="accordionFlushExample"
-      :multiple="true"
-    >
+    <div v-if="orders.length > 0" class="accordion accordion-flush" id="accordionFlushExample" :multiple="true">
       <!-- 使用v-for指令迭代loadOrder返回的資料，生成手風琴的項目 -->
       <div class="accordion-item" v-for="(order, index) in originalOrders" :key="order.orderId">
         <h2 class="accordion-header">
-          <button
-            class="accordion-button collapsed"
-            type="button"
-            data-bs-toggle="collapse"
-            :data-bs-target="`#flush-collapse${index}`"
-            aria-expanded="false"
-            :aria-controls="`flush-collapse${index}`"
-            @click="loadOrderDetails(order.orderId)"
-          >{{ (index+1) < 10 ? "&nbsp&nbsp" : '' }}{{ index+1 }} - &nbsp;&nbsp;&nbsp;購買時間 : {{formattedDate(order.orderDate)}} &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp; &nbsp;&nbsp;&nbsp; 總消費 : {{ order.totalAmount }} 元</button>
+          <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+            :data-bs-target="`#flush-collapse${index}`" aria-expanded="false" :aria-controls="`flush-collapse${index}`"
+            @click="loadOrderDetails(order.orderId)">{{ (index + 1) < 10 ? "&nbsp&nbsp" : '' }}{{ index + 1 }} -
+              &nbsp;&nbsp;&nbsp;購買時間 : {{ formattedDate(order.orderDate) }} &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+              &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+              &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+              &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+              &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+              &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+              &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+              &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+              &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+              &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp; &nbsp;&nbsp;&nbsp; 總消費 :
+              {{ order.totalAmount }} 元</button>
         </h2>
-        <div
-          :id="`flush-collapse${index}`"
-          class="accordion-collapse collapse"
-          :data-bs-parent="`#accordionFlushExample`"
-        >
+        <div :id="`flush-collapse${index}`" class="accordion-collapse collapse"
+          :data-bs-parent="`#accordionFlushExample`">
           <div class="accordion-body">
-            <div
-              v-for="(ordersDetail, detailIndex) in ordersDetails"
-              :key="ordersDetail.orderDetailId"
-            >
+            <div v-for="(ordersDetail, detailIndex) in ordersDetails" :key="ordersDetail.orderDetailId">
               <!-- 在這裡顯示每筆明細資料的相關內容 -->
               <div class="row">
-                第 {{ detailIndex +1}} 筆
+                第 {{ detailIndex + 1 }} 筆
                 <hr />
                 <div class="col-4 d-flex justify-content-center align-items-center">
                   <!-- <img :src="`https://localhost:7098/imgs/${ordersDetail.productImage}`" /> -->
@@ -68,7 +55,7 @@
                 <div class="col-6">
                   <p>產品名稱 : {{ ordersDetail.product }}</p>
                   <p>數量 : {{ ordersDetail.qty }}</p>
-                  <p>單價 : {{ordersDetail.subtotal}}</p>
+                  <p>單價 : {{ ordersDetail.subtotal }}</p>
 
                   <!-- 其他明細資料的相關內容... -->
                 </div>
@@ -80,6 +67,7 @@
             </div>
           </div>
         </div>
+
       </div>
     </div>
 
@@ -178,7 +166,7 @@ const handleDateChange = () => {
   // 如果使用者選擇了日期範圍，則將 orders 的值設置為 filteredOrders
   // 否則將 orders 的值設置為 originalOrders，這樣可以保證在選擇日期前顯示所有訂單，選擇日期後顯示篩選後的訂單
   originalOrders.value =
-    filteredOrders.length > 0 ? filteredOrders : orders.value;
+    filteredOrders.length > 0 ? filteredOrders : [];
   console.log(filteredOrders);
 };
 
@@ -198,7 +186,8 @@ const filterOrders = (start, end) => {
 
 #title {
   font-family: "Noto Sans TC", sans-serif;
-  font-size: 50px; /* 設定<p>標籤的字型大小，根據需要調整數值 */
+  font-size: 50px;
+  /* 設定<p>標籤的字型大小，根據需要調整數值 */
   text-align: center;
 }
 </style>
