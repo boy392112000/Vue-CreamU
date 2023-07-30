@@ -50,7 +50,8 @@
                 <hr />
                 <div class="col-4 d-flex justify-content-center align-items-center">
                   <!-- <img :src="`https://localhost:7098/imgs/${ordersDetail.productImage}`" /> -->
-                  <img :src="`https://localhost:7098/imgs/${ordersDetail.productImage}`" height="200" />
+                  <img :src="`https://localhost:7098/imgs/${ordersDetail.productImage}`" height="200"
+                    :alt="ordersDetail.product + '.jpg'" />
                 </div>
                 <div class="col-6">
                   <p>產品名稱 : {{ ordersDetail.product }}</p>
